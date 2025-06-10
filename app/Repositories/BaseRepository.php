@@ -8,18 +8,6 @@ abstract class BaseRepository
 {
     protected Model $model;
 
-    abstract protected function model(): string;
-
-    public function __construct()
-    {
-        $this->model = $this->getModelInstance();
-    }
-
-    protected function getModelInstance(): Model
-    {
-        return app($this->model());
-    }
-
     public function all()
     {
         return $this->model->all();
@@ -52,6 +40,11 @@ abstract class BaseRepository
         }
 
         return null;
+    }
+
+    public function findOrFail(int $id)
+    {
+        return $this->model->findOrFail($id);
     }
 
     public function create(array $attributes)
