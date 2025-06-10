@@ -15,11 +15,11 @@ class IpAddressResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'type' => 'ip-addresses',
+            'type' => 'ip-address',
             'id'   => $this->id,
             'attributes' => [
                 'address' => $this->address,
-                'label' => $this->label,
+                'label'   => $this->label,
                 'comment' => $this->comment,
                 $this->mergeWhen(
                     $request->routeIs('ip-addresses.*'),

@@ -14,7 +14,7 @@ class StoreIpAddressRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'data.attributes.address' => 'required|string',
+            'data.attributes.address' => 'required|string|ip',
             'data.attributes.label'   => 'required|string',
             'data.attributes.user_id' => 'required|integer',
             'data.attributes.comment' => 'string',

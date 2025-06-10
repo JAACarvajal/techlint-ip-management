@@ -2,22 +2,38 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Log;
-use App\Constants\HttpCodes;
 use App\Concerns\ApiResponse;
+use App\Constants\HttpCodes;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 
-class BaseService {
+/**
+ * Summary of BaseService
+ */
+class BaseService
+{
     use ApiResponse;
 
-    public static function handleException(\Exception $exception, int $code = HttpCodes::INTERNAL_SERVER_ERROR)
+    /**
+     * Handle exceptions and return a JSON response
+     *
+     * @param \Exception $exception Exception to handle
+     * @param int $code Status code for the response, default is 500
+     */
+    public static function handleException(\Exception $exception, int $code = HttpCodes::INTERNAL_SERVER_ERROR): JsonResponse
     {
-        self::logError(error: $exception->getMessage());
+        self::logError($exception->getMessage());
 
-        return self::responseError(message: $exception->getMessage(), code: $code);
+        return self::responseError($exception->getMessage(), $code);
     }
 
-    private static function logError($error)
+    /**
+     * Log an error message
+     *
+     * @param mixed $error
+     */
+    private static function logError(string $message): void
     {
-        Log::error(message: 'Service Error: ' . $error);
+        Log::error(message: 'Service Error: ' . $message);
     }
 }

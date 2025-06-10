@@ -2,10 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{Builder, Model};
+use App\Filters\V1\Filter;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class IpAddress extends Model
 {
+    use HasFactory;
+
+    /**
+     * Fillable attributes
+     * @var array
+     */
     protected $fillable = [
         'address',
         'label',
@@ -13,10 +21,25 @@ class IpAddress extends Model
         'comment',
     ];
 
+    /**
+     * Casted attributes
+     * @var array
+     */
     protected $casts = [
         'address' => 'string',
         'label'   => 'string',
         'user_id' => 'integer',
         'comment' => 'string',
     ];
+
+    /**
+     * Scope to apply filters to the Eloquent query builder
+     *
+     * @param Builder $builder Eloquent query builder instance
+     * @param Filter $filters Filters instance containing the filters to apply
+     */
+    public function scopeFilter(Builder $builder, Filter $filters): Builder
+    {
+        return $filters->apply($builder);
+    }
 }

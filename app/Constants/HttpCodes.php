@@ -2,6 +2,11 @@
 
 namespace App\Constants;
 
+/**
+ * Summary of HttpCodes
+ *
+ * Cconstants for common HTTP status codes
+ */
 class HttpCodes
 {
     public const OK = 200;
