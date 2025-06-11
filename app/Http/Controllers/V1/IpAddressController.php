@@ -7,9 +7,6 @@ use App\Http\Requests\V1\{ListIpAddressRequest, StoreIpAddressRequest, UpdateIpA
 use App\Services\IpAddressService;
 use Illuminate\Http\JsonResponse;
 
-/**
- * Summary of IpAddressController
- */
 class IpAddressController extends Controller
 {
     /**
@@ -18,6 +15,11 @@ class IpAddressController extends Controller
      */
     protected $service;
 
+    /**
+     * Create ip address controller instance
+     *
+     * @param IpAddressService $service IP address service instance
+     */
     public function __construct(IpAddressService $service)
     {
         $this->service = $service;

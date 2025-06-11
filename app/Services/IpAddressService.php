@@ -10,9 +10,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 
-/**
- * Summary of IpAddressService
- */
 class IpAddressService extends BaseService
 {
     /**
@@ -21,6 +18,11 @@ class IpAddressService extends BaseService
      */
     protected $repository;
 
+    /**
+     * Create ip address service instance
+     *
+     * @param IpAddressRepository $repository IP address repository instance
+     */
     public function __construct(IpAddressRepository $repository)
     {
         $this->repository = $repository;

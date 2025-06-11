@@ -3,9 +3,6 @@
 namespace App\Filters\V1;
 use Illuminate\Database\Eloquent\Builder;
 
-/**
- * Summary of IpAddressFilter
- */
 class IpAddressFilter extends Filter
 {
     /**

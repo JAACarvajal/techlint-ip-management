@@ -29,9 +29,6 @@ class IpAddressResource extends JsonResource
                     ]
                 ),
             ]
-            // 'links' => [
-            //     'self' => route('ip-addresses.show', ['ip-address' => $this->id])
-            // ]
         ];
     }
 }

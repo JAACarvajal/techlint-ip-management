@@ -7,9 +7,6 @@ use App\Constants\HttpCodes;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 
-/**
- * Summary of BaseService
- */
 class BaseService
 {
     use ApiResponse;

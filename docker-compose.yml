@@ -5,7 +5,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        image: app-laravel-docker
+        image: ip-management
         container_name: app-techlint-ip-management
         restart: unless-stopped
         working_dir: /var/www
@@ -22,7 +22,7 @@ services:
         container_name: nginx-techlint-ip-management
         restart: unless-stopped
         ports:
-            - "52000:80"
+            - "53000:80"
         volumes:
             - ./:/var/www
             - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
@@ -36,7 +36,7 @@ services:
         container_name: postgres-techlint-ip-management
         restart: unless-stopped
         ports:
-            - "52001:5432"
+            - "53001:5432"
         environment:
             POSTGRES_DB: ip_management
             POSTGRES_USER: root
@@ -51,7 +51,7 @@ services:
         container_name: redis-techlint-ip-management
         restart: unless-stopped
         ports:
-            - "52002:6379"
+            - "53002:6379"
         networks:
             - laravel
 

@@ -6,9 +6,6 @@ use App\Filters\V1\Filter;
 use Illuminate\Database\Eloquent\{Collection, Model};
 use Illuminate\Pagination\LengthAwarePaginator;
 
-/**
- * Summary of BaseRepository
- */
 abstract class BaseRepository
 {
     /**

@@ -4,11 +4,6 @@ namespace App\Filters\V1;
 
 use Illuminate\Database\Eloquent\Builder;
 
-/**
- * Summary of Filter
- *
- * Filters that can be applied to Eloquent queries
- */
 abstract class Filter
 {
     /**
@@ -29,6 +24,11 @@ abstract class Filter
      */
     protected $sortables = [];
 
+    /**
+     * Create filter instance
+     *
+     * @param array $filters Filters to apply
+     */
     public function __construct(array $filters = [])
     {
         $this->filters = $filters;
