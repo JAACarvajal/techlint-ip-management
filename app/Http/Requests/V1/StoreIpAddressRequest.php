@@ -24,7 +24,7 @@ class StoreIpAddressRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'data.attributes.user_id' => 'The data.attributes.user_id field is required.',
+            'data.attributes.user_id.required' => 'The data.attributes.user_id field is required.',
         ];
     }
 }
