@@ -1,6 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\EnsureTokenIsValid;
 use App\Http\Controllers\V1\IpAddressController;
+use Illuminate\Support\Facades\Route;
 
-Route::apiResource('ip-addresses', IpAddressController::class);
+// IP address routes
+Route::middleware([EnsureTokenIsValid::class])->group(function () {
+    Route::apiResource('ip-addresses', IpAddressController::class);
+});
