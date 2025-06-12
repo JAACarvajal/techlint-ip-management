@@ -2,10 +2,18 @@
 
 namespace App\Http\Requests\V1;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseRequest;
 
-class ListIpAddressRequest extends FormRequest
+class ListIpAddressRequest extends BaseRequest
 {
+    /**
+     * Required ability for the request
+     */
+    protected function requiredAbility(): string
+    {
+        return 'view:ip_address';
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

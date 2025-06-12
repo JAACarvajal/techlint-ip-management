@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\{Builder, Model};
 use App\Filters\V1\Filter;
+use Illuminate\Database\Eloquent\{Builder, Model};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class IpAddress extends Model
@@ -26,6 +26,7 @@ class IpAddress extends Model
      * @var array
      */
     protected $casts = [
+        'id'      => 'string',
         'address' => 'string',
         'label'   => 'string',
         'user_id' => 'integer',

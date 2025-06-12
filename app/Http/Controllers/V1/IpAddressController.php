@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\{ListIpAddressRequest, StoreIpAddressRequest, UpdateIpAddressRequest};
+use App\Http\Requests\V1\{DeleteIpAddressRequest, ListIpAddressRequest, StoreIpAddressRequest, UpdateIpAddressRequest, ViewIpAddressRequest};
 use App\Services\IpAddressService;
 use Illuminate\Http\JsonResponse;
 
@@ -30,7 +30,7 @@ class IpAddressController extends Controller
      *
      * @param int $ipId IP address ID
      */
-    public function destroy(int $ipId): JsonResponse
+    public function destroy(DeleteIpAddressRequest $request, int $ipId): JsonResponse
     {
         return $this->service->delete($ipId);
     }

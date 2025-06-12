@@ -49,6 +49,8 @@ class EnsureTokenIsValid
             return self::responseError('Unauthorized', HttpCodes::UNAUTHORIZED);
         }
 
+        $request->attributes->set('permissions', $response->json('data.attributes.permissions'));
+
         return $next($request);
     }
 }
