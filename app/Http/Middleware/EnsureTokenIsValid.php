@@ -39,13 +39,13 @@ class EnsureTokenIsValid
     {
         $token = $request->bearerToken();
 
-        if (!$token) {
+        if ($token === null) {
             return self::responseError('Missing token', HttpCodes::UNAUTHORIZED);
         }
 
         $response = $this->authWebservice->check($request->bearerToken());
 
-        if ($response->unauthorized()) {
+        if ($response->unauthorized() === true) {
             return self::responseError('Unauthorized', HttpCodes::UNAUTHORIZED);
         }
 
