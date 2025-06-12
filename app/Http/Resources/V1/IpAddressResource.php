@@ -21,6 +21,7 @@ class IpAddressResource extends JsonResource
                 'address' => $this->address,
                 'label'   => $this->label,
                 'comment' => $this->comment,
+                'user_id' => $this->user_id,
                 $this->mergeWhen(
                     $request->routeIs('ip-addresses.*'),
                     [

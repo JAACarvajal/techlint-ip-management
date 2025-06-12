@@ -16,13 +16,23 @@ abstract class BaseRequest extends FormRequest
      */
     abstract protected function requiredAbility(): string;
 
+    /**
+     * Determine if the user is authorized to make this request
+     */
     public function authorize(): bool
     {
-        $permissions = $this->attributes->get('permissions', []);
+        $permissions = $this->attributes->get('user_attributes')['permissions'] ?? [];
+
         return in_array($this->requiredAbility(), $permissions);
     }
 
-    protected function failedAuthorization()
+
+    /**
+     * Handle a failed authorization attempt
+     *
+     * @throws \Illuminate\Http\Exceptions\HttpResponseException
+     */
+    protected function failedAuthorization(): never
     {
         throw new HttpResponseException(
             self::responseError('You do not have permission to perform this action.', HttpCodes::FORBIDDEN),

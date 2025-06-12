@@ -13,4 +13,15 @@ class DeleteIpAddressRequest extends BaseRequest
     {
         return 'delete:ip_address';
     }
+
+    /**
+     * Determine if the user is authorized to make this request
+     */
+    public function authorize(): bool
+    {
+        $user = $this->attributes->get('user_attributes');
+        $hasPermission = in_array($this->requiredAbility(), $user['permissions']);
+
+        return $user['is_admin'] === true && $hasPermission;
+    }
 }
