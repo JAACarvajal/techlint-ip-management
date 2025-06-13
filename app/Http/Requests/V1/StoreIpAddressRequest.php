@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\V1;
 
-use App\Http\Requests\BaseRequest;
+use App\Http\Requests\V1\BaseIpAddressRequest;
 
-class StoreIpAddressRequest extends BaseRequest
+class StoreIpAddressRequest extends BaseIpAddressRequest
 {
     /**
      * Required ability for the request
@@ -29,6 +29,9 @@ class StoreIpAddressRequest extends BaseRequest
         ];
     }
 
+    /**
+     * Messages for validation rules
+     */
     public function messages(): array
     {
         return [

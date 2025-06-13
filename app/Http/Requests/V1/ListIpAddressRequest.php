@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\V1;
 
-use App\Http\Requests\BaseRequest;
+use App\Http\Requests\V1\BaseIpAddressRequest;
 
-class ListIpAddressRequest extends BaseRequest
+class ListIpAddressRequest extends BaseIpAddressRequest
 {
     /**
      * Required ability for the request

@@ -42,7 +42,7 @@ class IpAddressController extends Controller
      */
     public function index(ListIpAddressRequest $request): JsonResponse
     {
-        return $this->service->list($request->validated());
+        return $this->service->list($request->mappedQueryParameters());
     }
 
     /**
@@ -52,7 +52,7 @@ class IpAddressController extends Controller
      */
     public function store(StoreIpAddressRequest $request): JsonResponse
     {
-        return $this->service->create($request->input('data.attributes'));
+        return $this->service->create($request->mappedAttributes());
     }
 
     /**
@@ -62,6 +62,6 @@ class IpAddressController extends Controller
      */
     public function update(UpdateIpAddressRequest $request, $ipId): JsonResponse
     {
-        return $this->service->update($ipId, $request->input('data.attributes'));
+        return $this->service->update($ipId, $request->mappedAttributes());
     }
 }

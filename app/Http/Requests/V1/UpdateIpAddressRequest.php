@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\V1;
 
-use App\Http\Requests\BaseRequest;
+use App\Http\Requests\V1\BaseIpAddressRequest;
 use App\Models\IpAddress;
 
-class UpdateIpAddressRequest extends BaseRequest
+class UpdateIpAddressRequest extends BaseIpAddressRequest
 {
     /**
      * Required ability for the request

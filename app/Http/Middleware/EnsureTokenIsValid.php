@@ -37,12 +37,6 @@ class EnsureTokenIsValid
      */
     public function handle(Request $request, Closure $next): JsonResponse|Response
     {
-        $token = $request->bearerToken();
-
-        if ($token === null) {
-            return self::responseError('Missing token', HttpCodes::UNAUTHORIZED);
-        }
-
         $response = $this->authWebservice->check($request->bearerToken());
 
         if ($response->unauthorized() === true) {

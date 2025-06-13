@@ -35,7 +35,7 @@ abstract class BaseRequest extends FormRequest
     protected function failedAuthorization(): never
     {
         throw new HttpResponseException(
-            self::responseError('You do not have permission to perform this action.', HttpCodes::FORBIDDEN),
+            self::responseError('Unauthorized', HttpCodes::FORBIDDEN),
         );
     }
 }
