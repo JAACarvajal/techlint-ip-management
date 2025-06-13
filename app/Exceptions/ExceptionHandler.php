@@ -7,14 +7,10 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Illuminate\Http\{JsonResponse, Request};
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\{AccessDeniedHttpException, HttpException, NotFoundHttpException};
 use Throwable;
 
 class ExceptionHandler
@@ -28,6 +24,9 @@ class ExceptionHandler
         AccessDeniedHttpException::class => 'handleAuthenticationException',
         AuthenticationException::class   => 'handleAuthenticationException',
         AuthorizationException::class    => 'handleAuthorizationException',
+        HttpException::class             => 'handleHttpException',
+        ModelNotFoundException::class    => 'handleNotFoundException',
+        NotFoundHttpException::class     => 'handleNotFoundException',
         ValidationException::class       => 'handleValidationException',
         ValidationException::class       => 'handleValidationException',
         QueryException::class            => 'handleQueryException',
@@ -68,6 +67,44 @@ class ExceptionHandler
     }
 
     /**
+     * Handle not found exceptions
+     */
+    public function handleNotFoundException(ModelNotFoundException|NotFoundHttpException $e, Request $request): JsonResponse
+    {
+        $this->logException($e, 'Resource not found error');
+
+        $message = $e instanceof ModelNotFoundException
+            ? 'The requested resource was not found.'
+            : "The requested endpoint '{$request->getRequestUri()}' was not found.";
+
+        return self::responseError([
+            'error' => [
+                'type'      => $this->getExceptionClass($e),
+                'status'    => HttpCodes::NOT_FOUND,
+                'message'   => $message,
+                'timestamp' => now()->toISOString(),
+            ]
+        ], HttpCodes::NOT_FOUND);
+    }
+
+    /**
+     * Handle general HTTP exceptions
+     */
+    public function handleHttpException(HttpException $e, Request $request): JsonResponse
+    {
+        $this->logException($e, 'HTTP error');
+
+        return self::responseError([
+            'error' => [
+                'type'      => $this->getExceptionClass($e),
+                'status'    => $e->getStatusCode(),
+                'message'   => $e->getMessage() ?? 'An HTTP error occurred.',
+                'timestamp' => now()->toISOString(),
+            ]
+        ], $e->getStatusCode());
+    }
+
+    /**
      * Handle validation exceptions
      */
     public function handleValidationException(ValidationException $e,Request $request): JsonResponse
@@ -87,11 +124,11 @@ class ExceptionHandler
 
         return self::responseError([
             'error' => [
-                'type'    => $this->getExceptionClass($e),
-                'status'  => 422,
-                'message' => 'The provided data is invalid.',
+                'type'      => $this->getExceptionClass($e),
+                'status'    => HttpCodes::UNPROCESSABLE_CONTENT,
+                'message'   => 'The provided data is invalid.',
                 'timestamp' => now()->toISOString(),
-                'errors'  => $errors,
+                'errors'    => $errors,
             ]
         ], HttpCodes::UNPROCESSABLE_CONTENT);
     }

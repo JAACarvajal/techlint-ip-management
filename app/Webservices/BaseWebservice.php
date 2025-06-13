@@ -19,4 +19,18 @@ abstract class BaseWebservice implements WebserviceInterface
             'Content-Type' => 'application/json'
         ];
     }
+
+    public function formatRequestBody(array $data): array
+    {
+        return [
+            'data' => [
+                'attributes' => $data
+            ]
+        ];
+    }
+
+    public function getToken(): string
+    {
+        return request()->bearerToken() ?? '';
+    }
 }

@@ -2,16 +2,20 @@
 
 namespace App\Webservices;
 
+use Illuminate\Http\Client\Response;
+
 class AuthWebservice extends BaseWebservice
 {
     /**
      * Check if the provided token is valid
-     *
-     * @param string $token JWT token to check
      */
-    public function check(string $token)
+    public function check(): Response
     {
-        return $this->get($this->getBaseUrl() . '/api/auth/check', $this->getHeaders(), $token);
+        return $this->get(
+            url: $this->getBaseUrl() . '/api/auth/check',
+            headers: $this->getHeaders(),
+            token: $this->getToken()
+        );
     }
 
     /**

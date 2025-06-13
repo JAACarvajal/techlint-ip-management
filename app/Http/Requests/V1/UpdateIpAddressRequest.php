@@ -27,7 +27,7 @@ class UpdateIpAddressRequest extends BaseIpAddressRequest
             return true;
         }
 
-        $ipAddress = IpAddress::find($this->route('ip_address'));
+        $ipAddress = IpAddress::findOrFail($this->route('ip_address'));
         $auth_user_id = (int) $this->attributes->get('user_id');
 
         return
