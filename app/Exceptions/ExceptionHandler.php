@@ -111,11 +111,11 @@ class ExceptionHandler
     {
         $errors = [];
 
-        foreach ($e->errors() as $field => $messages) {
+        foreach ($e->errors() as $attribute => $messages) {
             foreach ($messages as $message) {
                 $errors[] = [
-                    'field'   => $field,
-                    'message' => $message,
+                    'attribute' => $attribute,
+                    'message'   => $message,
                 ];
             }
         }

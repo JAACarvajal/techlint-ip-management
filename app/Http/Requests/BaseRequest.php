@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Concerns\ApiResponse;
-use App\Constants\HttpCodes;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;
 
