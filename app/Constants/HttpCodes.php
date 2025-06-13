@@ -12,5 +12,6 @@ class HttpCodes
     public const UNPROCESSABLE_CONTENT = 422;
     public const FORBIDDEN = 403;
     public const NOT_FOUND = 404;
+    public const CONFLICT = 409;
     public const INTERNAL_SERVER_ERROR = 500;
 }

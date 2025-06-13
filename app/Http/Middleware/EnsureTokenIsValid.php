@@ -3,16 +3,13 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Concerns\ApiResponse;
-use App\Constants\HttpCodes;
 use App\Webservices\AuthWebservice;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\{JsonResponse, Request};
 use Symfony\Component\HttpFoundation\Response;
 
 class EnsureTokenIsValid
 {
-    use ApiResponse;
-
     /**
      * Auth web service instance
      *
@@ -40,7 +37,7 @@ class EnsureTokenIsValid
         $response = $this->authWebservice->check($request->bearerToken());
 
         if ($response->unauthorized() === true) {
-            return self::responseError('Unauthorized', HttpCodes::UNAUTHORIZED);
+            throw new AuthorizationException('This action is unauthorized.');
         }
 
         $request->attributes->set('user_id', $response->json('data.id'));

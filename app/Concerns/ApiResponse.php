@@ -39,8 +39,8 @@ trait ApiResponse
      * @param array $message Response message
      * @param int $code HTTP status code
      */
-    protected static function responseError(string $message = 'Something went wrong', int $code = HttpCodes::INTERNAL_SERVER_ERROR): JsonResponse
+    protected static function responseError(array $data = [], int $code = HttpCodes::INTERNAL_SERVER_ERROR): JsonResponse
     {
-        return response()->json(['error' => $message], $code);
+        return response()->json($data, $code);
     }
 }

@@ -2,16 +2,13 @@
 
 namespace App\Http\Middleware;
 
-use App\Concerns\ApiResponse;
-use App\Constants\HttpCodes;
-use Closure;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Closure;
 
 class CheckBearerToken
 {
-    use ApiResponse;
-
     /**
      * Handle an incoming request.
      *
@@ -20,7 +17,7 @@ class CheckBearerToken
     public function handle(Request $request, Closure $next): Response
     {
         if (empty($request->bearerToken()) === true) {
-            return self::responseError('Unauthorized', HttpCodes::UNAUTHORIZED);
+            throw new AuthorizationException('This action is unauthorized.');
         }
 
         return $next($request);

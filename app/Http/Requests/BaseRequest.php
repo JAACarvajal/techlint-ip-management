@@ -4,8 +4,8 @@ namespace App\Http\Requests;
 
 use App\Concerns\ApiResponse;
 use App\Constants\HttpCodes;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
 abstract class BaseRequest extends FormRequest
 {
@@ -26,16 +26,13 @@ abstract class BaseRequest extends FormRequest
         return in_array($this->requiredAbility(), $permissions);
     }
 
-
     /**
      * Handle a failed authorization attempt
      *
-     * @throws \Illuminate\Http\Exceptions\HttpResponseException
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     protected function failedAuthorization(): never
     {
-        throw new HttpResponseException(
-            self::responseError('Unauthorized', HttpCodes::FORBIDDEN),
-        );
+        throw new AuthorizationException('This action is unauthorized.');
     }
 }
