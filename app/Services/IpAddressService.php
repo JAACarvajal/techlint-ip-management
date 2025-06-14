@@ -7,6 +7,7 @@ use App\Filters\V1\IpAddressFilter;
 use App\Http\Resources\V1\IpAddressResource;
 use App\Repositories\IpAddressRepository;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\DB;
 
 class IpAddressService extends BaseService
@@ -54,7 +55,12 @@ class IpAddressService extends BaseService
             $this->repository->delete($address->id);
         });
 
-        return self::responseSuccess([], code: HttpCodes::NO_CONTENT);
+        return self::responseSuccess(
+            JsonResource::make(null)->additional([
+                'meta' => $this->withAuthMetadata(request())
+            ]),
+            HttpCodes::OK
+        );
     }
 
     /**
