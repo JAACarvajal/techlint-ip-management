@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Constants\{HttpCodes, Pagination};
+use App\Constants\HttpCodes;
 use App\Filters\V1\IpAddressFilter;
 use App\Http\Resources\V1\IpAddressResource;
 use App\Repositories\IpAddressRepository;
@@ -64,9 +64,12 @@ class IpAddressService extends BaseService
      */
     public function list(array $filters): JsonResponse
     {
-        $ipAddresses = $this->repository->paginate(new IpAddressFilter($filters), Pagination::DEFAULT_PER_PAGE);
+        $ipAddresses = $this->repository->paginate(new IpAddressFilter($filters));
 
-        return self::responseSuccess(IpAddressResource::collection($ipAddresses), code: HttpCodes::OK);
+        return self::responseSuccess(
+            IpAddressResource::collection($ipAddresses)->additional($this->withAuthMetadata(request())),
+            code: HttpCodes::OK
+        );
     }
 
     /**

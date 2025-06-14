@@ -4,24 +4,10 @@ namespace App\Concerns;
 
 use App\Constants\HttpCodes;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 trait ApiResponse
 {
-    /**
-     * Returns a JSON response with a success message and data
-     *
-     * @param mixed $data Response data
-     * @param string $message Response message
-     * @param int $code HTTP status code
-     */
-    protected static function responseWithMessage(mixed $data = [], string $message = 'success', int $code = HttpCodes::OK): JsonResponse
-    {
-        return self::responseSuccess([
-            'message' => $message,
-            'data'    => $data,
-        ], $code);
-    }
-
     /**
      * Returns a JSON response with data
      *
@@ -30,7 +16,11 @@ trait ApiResponse
      */
     protected static function responseSuccess(mixed $data = [], int $code = HttpCodes::OK): JsonResponse
     {
-        return response()->json(['data' => $data], $code);
+        if ($data instanceof JsonResource) {
+            return $data->response()->setStatusCode($code);
+        }
+
+        return response()->json($data, $code);
     }
 
     /**

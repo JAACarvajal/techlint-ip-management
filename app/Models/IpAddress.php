@@ -29,7 +29,7 @@ class IpAddress extends Model
         'id'      => 'string',
         'address' => 'string',
         'label'   => 'string',
-        'user_id' => 'integer',
+        'user_id' => 'string',
         'comment' => 'string',
     ];
 

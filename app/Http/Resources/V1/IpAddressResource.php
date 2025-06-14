@@ -2,11 +2,14 @@
 
 namespace App\Http\Resources\V1;
 
+use App\Concerns\AuthMetadata;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class IpAddressResource extends JsonResource
 {
+    use AuthMetadata;
+
     /**
      * Transform the resource into an array.
      *
@@ -29,7 +32,19 @@ class IpAddressResource extends JsonResource
                         'updated_at' => $this->updated_at
                     ]
                 ),
-            ]
+            ],
+        ];
+    }
+
+    /**
+     * Get additional data that should be returned with the resource array.
+     *
+     * @param Request $request Request instance
+     */
+    public function with(Request $request): array
+    {
+        return [
+            'meta' => $this->withAuthMetadata($request),
         ];
     }
 }
