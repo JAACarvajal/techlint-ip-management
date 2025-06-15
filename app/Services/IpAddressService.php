@@ -51,12 +51,12 @@ class IpAddressService extends BaseService
     {
         $address = $this->repository->findOrFail($ipId);
 
-        DB::transaction(function () use ($address) {
-            $this->repository->delete($address->id);
+        $deletedId = DB::transaction(function () use ($address) {
+            return $this->repository->delete($address->id);
         });
 
         return self::responseSuccess(
-            JsonResource::make(null)->additional([
+            JsonResource::make(['id' => $deletedId])->additional([
                 'meta' => $this->withAuthMetadata(request())
             ]),
             HttpCodes::OK

@@ -111,11 +111,18 @@ abstract class BaseRepository
      *
      * @param int $id ID of the record to delete
      */
-    public function delete(int $id): bool
+    public function delete(int $id): string|bool
     {
         $record = $this->findOrFail($id);
+        $id = $record->id;
 
-        return $record ? $record->delete() : false;
+        if ($record) {
+            $record->delete();
+
+            return $id;
+        }
+
+        return false;
     }
 
     /**

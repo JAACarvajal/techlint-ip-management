@@ -19,13 +19,15 @@ class StoreIpAddressRequest extends BaseIpAddressRequest
      */
     public function authorize(): bool
     {
-        if ($this->isAdmin() === true && $this->hasPermission() === true) {
+        $hasPermission = $this->hasPermission();
+
+        if ($this->isAdmin() === true && $hasPermission === true) {
             return true;
         }
 
         return
-            $this->hasPermission() === true &&
-            $this->input('data.attributes.user_id') == $this->getAuthUserId();
+            $hasPermission === true &&
+            $this->input('data.attributes.user_id') === $this->getAuthUserId();
     }
 
     /**

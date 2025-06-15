@@ -8,6 +8,17 @@ use App\Models\IpAddress;
 class UpdateIpAddressRequest extends BaseIpAddressRequest
 {
     /**
+     * Allowed attributes for the request
+     *
+     * @var array
+     */
+    protected array $allowedAttributes = [
+        'address',
+        'comment',
+        'label',
+    ];
+
+    /**
      * Required ability for the request
      */
     protected function requiredAbility(): string
