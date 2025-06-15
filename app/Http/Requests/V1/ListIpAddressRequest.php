@@ -24,7 +24,8 @@ class ListIpAddressRequest extends BaseIpAddressRequest
         return [
             'include' => ['sometimes'],
             'filter'  => ['sometimes', 'array'],
-            'sort'    => ['sometimes', 'string']
+            'sort'    => ['sometimes', 'string'],
+            'page'    => ['sometimes', 'string']
         ];
     }
 }

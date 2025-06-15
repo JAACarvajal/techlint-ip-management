@@ -20,9 +20,7 @@ abstract class BaseRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $permissions = $this->attributes->get('user_attributes')['permissions'] ?? [];
-
-        return in_array($this->requiredAbility(), $permissions);
+        return $this->hasPermission();
     }
 
     /**
@@ -33,5 +31,37 @@ abstract class BaseRequest extends FormRequest
     protected function failedAuthorization(): never
     {
         throw new AuthorizationException('This action is unauthorized.');
+    }
+
+    /**
+     * Get the authenticated user ID
+     */
+    public function getAuthUserId(): ?string
+    {
+        return $this->attributes->get('user_id');
+    }
+
+    /**
+     * Get user attributes from the request
+     */
+    public function getUserAttributes(): array
+    {
+        return $this->attributes->get('user_attributes');
+    }
+
+    /**
+     * Check if the user has the required permission
+     */
+    public function hasPermission(): bool
+    {
+        return in_array($this->requiredAbility(), $this->getUserAttributes()['permissions']);
+    }
+
+    /**
+     * Check if user is admin
+     */
+    public function isAdmin(): bool
+    {
+        return $this->getUserAttributes()['is_admin'] === true;
     }
 }

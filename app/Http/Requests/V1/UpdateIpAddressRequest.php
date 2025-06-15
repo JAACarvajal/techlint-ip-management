@@ -20,17 +20,16 @@ class UpdateIpAddressRequest extends BaseIpAddressRequest
      */
     public function authorize(): bool
     {
-        $user = $this->attributes->get('user_attributes');
-        $hasPermission = in_array($this->requiredAbility(), $user['permissions']);
+        if ($this->isAdmin() === true && $this->hasPermission() === true) {
+            return true;
+        }
 
         $ipAddress = IpAddress::findOrFail($this->route('ip_address'));
-        $auth_user_id = (int) $this->attributes->get('user_id');
 
         return
-            $hasPermission &&
             $ipAddress &&
-            $ipAddress->user_id === $auth_user_id &&
-            $hasPermission;
+            $ipAddress->user_id == $this->getAuthUserId() &&
+            $this->hasPermission();
     }
 
     /**

@@ -34,6 +34,10 @@ class EnsureTokenIsValid
      */
     public function handle(Request $request, Closure $next): JsonResponse|Response
     {
+        if (empty($request->bearerToken()) === true) {
+            throw new AuthorizationException('This action is unauthorized.');
+        }
+
         $response = $this->authWebservice->check();
 
         if ($response->unauthorized() === true) {
