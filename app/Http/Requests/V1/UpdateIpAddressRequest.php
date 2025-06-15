@@ -23,14 +23,11 @@ class UpdateIpAddressRequest extends BaseIpAddressRequest
         $user = $this->attributes->get('user_attributes');
         $hasPermission = in_array($this->requiredAbility(), $user['permissions']);
 
-        if ($user['is_admin'] === true && $hasPermission) {
-            return true;
-        }
-
         $ipAddress = IpAddress::findOrFail($this->route('ip_address'));
         $auth_user_id = (int) $this->attributes->get('user_id');
 
         return
+            $hasPermission &&
             $ipAddress &&
             $ipAddress->user_id === $auth_user_id &&
             $hasPermission;

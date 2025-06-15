@@ -73,7 +73,7 @@ class IpAddressService extends BaseService
         $ipAddresses = $this->repository->paginate(new IpAddressFilter($filters));
 
         return self::responseSuccess(
-            IpAddressResource::collection($ipAddresses)->additional($this->withAuthMetadata(request())),
+            IpAddressResource::collection($ipAddresses),
             code: HttpCodes::OK
         );
     }

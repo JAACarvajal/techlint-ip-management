@@ -18,7 +18,7 @@ class IpAddressResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'type' => 'ip-address',
+            'type' => 'ip_address',
             'id'   => $this->id,
             'attributes' => [
                 'address' => $this->address,
