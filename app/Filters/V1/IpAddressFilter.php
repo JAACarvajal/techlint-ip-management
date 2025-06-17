@@ -13,6 +13,7 @@ class IpAddressFilter extends Filter
         'address',
         'comment',
         'label',
+        'userId' => 'user_id',
         'createdAt' => 'created_at',
         'updatedAt' => 'updated_at'
     ];
@@ -81,5 +82,14 @@ class IpAddressFilter extends Filter
         }
 
         return $this->builder->whereDate('updated_at', $value);
+    }
+
+    /**
+     * Filter by user id
+     * @param string $value
+     */
+    public function userId($value): Builder
+    {
+        return $this->builder->where('user_id', $value);
     }
 }
