@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1;
 
 use App\Http\Requests\V1\BaseIpAddressRequest;
+use Illuminate\Support\Arr;
 
 class StoreIpAddressRequest extends BaseIpAddressRequest
 {
@@ -25,9 +26,17 @@ class StoreIpAddressRequest extends BaseIpAddressRequest
             return true;
         }
 
-        return
-            $hasPermission === true &&
-            $this->input('data.attributes.user_id') === $this->getAuthUserId();
+        return $hasPermission === true;
+    }
+
+    /**
+     * Map the validated attributes to the allowed attributes
+     */
+    public function mappedAttributes(): array
+    {
+        $attributes = Arr::only($this->input('data.attributes'), $this->allowedAttributes);
+
+        return Arr::set($attributes, 'user_id', $this->getAuthUserId());
     }
 
     /**
@@ -40,18 +49,7 @@ class StoreIpAddressRequest extends BaseIpAddressRequest
         return [
             'data.attributes.address' => 'required|string|ip',
             'data.attributes.label'   => 'required|string',
-            'data.attributes.user_id' => 'required|string',
             'data.attributes.comment' => 'string',
-        ];
-    }
-
-    /**
-     * Messages for validation rules
-     */
-    public function messages(): array
-    {
-        return [
-            'data.attributes.user_id.required' => 'The data.attributes.user_id field is required.',
         ];
     }
 }

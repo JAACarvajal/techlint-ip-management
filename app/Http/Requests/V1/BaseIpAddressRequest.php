@@ -16,7 +16,6 @@ abstract class BaseIpAddressRequest extends BaseRequest
         'address',
         'comment',
         'label',
-        'user_id',
     ];
 
     /**
@@ -34,9 +33,7 @@ abstract class BaseIpAddressRequest extends BaseRequest
      */
     public function mappedAttributes(): array
     {
-        $attributes = $this->input('data.attributes');
-
-        return Arr::only($attributes, $this->allowedAttributes);
+        return Arr::only($this->input('data.attributes'), $this->allowedAttributes);
     }
 
     /**
@@ -50,6 +47,6 @@ abstract class BaseIpAddressRequest extends BaseRequest
             return Arr::only($queryParams, $this->allowedQueryParams);
         }
 
-        return Arr::set($queryParams, 'filter.userId', $this->getAuthUserId());;
+        return Arr::set($queryParams, 'filter.userId', $this->getAuthUserId());
     }
 }
