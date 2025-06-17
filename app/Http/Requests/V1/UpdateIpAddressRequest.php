@@ -51,9 +51,9 @@ class UpdateIpAddressRequest extends BaseIpAddressRequest
     public function rules(): array
     {
         return [
-            'data.attributes.address' => 'required|string',
-            'data.attributes.label'   => 'required|string',
-            'data.attributes.comment' => 'string'
+            'data.attributes.address' => 'sometimes|string',
+            'data.attributes.label'   => 'sometimes|string',
+            'data.attributes.comment' => 'sometimes|string'
         ];
     }
 }

@@ -66,7 +66,7 @@ class IpAddressFilter extends Filter
      */
     public function label($value): Builder
     {
-        return $this->builder->where('content', 'like', '%' . $value . '%');
+        return $this->builder->where('label', 'like', '%' . $value . '%');
     }
 
     /**
