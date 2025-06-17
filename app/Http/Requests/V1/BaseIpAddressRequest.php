@@ -44,8 +44,12 @@ abstract class BaseIpAddressRequest extends BaseRequest
      */
     public function mappedQueryParameters(): array
     {
-        $queryParams = $this->validated();
+        $queryParams = Arr::only($this->validated(), $this->allowedQueryParams);
 
-        return Arr::only($queryParams, $this->allowedQueryParams);
+        if ($this->isAdmin()) {
+            return Arr::only($queryParams, $this->allowedQueryParams);
+        }
+
+        return Arr::set($queryParams, 'filter.userId', $this->getAuthUserId());;
     }
 }
