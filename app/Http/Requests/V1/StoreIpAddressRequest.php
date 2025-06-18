@@ -52,4 +52,16 @@ class StoreIpAddressRequest extends BaseIpAddressRequest
             'data.attributes.comment' => 'string',
         ];
     }
+
+    /**
+     * Override attributes
+     */
+    public function attributes(): array
+    {
+        return [
+            'data.attributes.address' => 'address',
+            'data.attributes.label'   => 'label',
+            'data.attributes.comment' => 'comment',
+        ];
+    }
 }
