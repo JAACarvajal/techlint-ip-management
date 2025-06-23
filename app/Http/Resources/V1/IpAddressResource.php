@@ -28,8 +28,8 @@ class IpAddressResource extends JsonResource
                 $this->mergeWhen(
                     $request->routeIs('ip-addresses.*'),
                     [
-                        'created_at' => $this->created_at,
-                        'updated_at' => $this->updated_at
+                        'created_at' => $this->created_at->toDateTimeString(),
+                        'updated_at' => $this->updated_at->toDateTimeString()
                     ]
                 ),
             ],

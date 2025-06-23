@@ -68,9 +68,9 @@ class IpAddressService extends BaseService
      *
      * @param array $filters Filters to apply on the IP addresses
      */
-    public function list(array $filters): JsonResponse
+    public function list(array $query): JsonResponse
     {
-        $ipAddresses = $this->repository->paginate(new IpAddressFilter($filters));
+        $ipAddresses = $this->repository->paginate(new IpAddressFilter($query), $query['rows'] ?? 10);
 
         return self::responseSuccess(
             IpAddressResource::collection($ipAddresses),

@@ -25,7 +25,7 @@ class ListIpAddressRequest extends BaseIpAddressRequest
             'include' => ['sometimes'],
             'filter'  => ['sometimes', 'array'],
             'sort'    => ['sometimes', 'string'],
-            'page'    => ['sometimes', 'string']
+            'rows'    => ['sometimes', 'string'],
         ];
     }
 }

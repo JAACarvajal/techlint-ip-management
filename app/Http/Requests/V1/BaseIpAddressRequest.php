@@ -26,6 +26,7 @@ abstract class BaseIpAddressRequest extends BaseRequest
         'sort',
         'filter',
         'include',
+        'rows',
     ];
 
     /**
