@@ -10,6 +10,7 @@ class IpAddressFilter extends Filter
      * @var array
      */
     protected $sortables = [
+        'id',
         'address',
         'comment',
         'label',
