@@ -56,4 +56,16 @@ class UpdateIpAddressRequest extends BaseIpAddressRequest
             'data.attributes.comment' => 'sometimes|string|max:150'
         ];
     }
+
+    /**
+     * Override attributes
+     */
+    public function attributes(): array
+    {
+        return [
+            'data.attributes.address' => 'address',
+            'data.attributes.label'   => 'label',
+            'data.attributes.comment' => 'comment',
+        ];
+    }
 }
