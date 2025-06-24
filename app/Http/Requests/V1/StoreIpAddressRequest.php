@@ -47,9 +47,9 @@ class StoreIpAddressRequest extends BaseIpAddressRequest
     public function rules(): array
     {
         return [
-            'data.attributes.address' => 'required|string|ip',
-            'data.attributes.label'   => 'required|string',
-            'data.attributes.comment' => 'string',
+            'data.attributes.address' => 'required|string|ip|unique:ip_addresses,address',
+            'data.attributes.label'   => 'required|string|max:30',
+            'data.attributes.comment' => 'string|max:150',
         ];
     }
 
