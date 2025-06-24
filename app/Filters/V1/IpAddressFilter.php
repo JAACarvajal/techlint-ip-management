@@ -27,7 +27,7 @@ class IpAddressFilter extends Filter
         return $this->builder->where('address', 'like', '%' . $value . '%');
     }
 
-/**
+    /**
      * Filter by comment
      * @param string $value
      */
@@ -49,6 +49,15 @@ class IpAddressFilter extends Filter
         }
 
         return $this->builder->whereDate('created_at', $value);
+    }
+
+    /**
+     * Filter by ID
+     * @param string $value
+     */
+    public function id($value): Builder
+    {
+        return $this->builder->where('id', $value);
     }
 
     /**
